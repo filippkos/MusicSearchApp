@@ -13,11 +13,15 @@ enum TrackDetailsViewOutputEvents: ViewModelEvent {
 
 class TrackDetailsViewModel: BaseViewModel<TrackDetailsViewOutputEvents> {
     
-    var result: Binder<TrackDetailsModel>? = nil
+    var result: Binder<TrackDetailsModel?> = Binder(nil)
     let error: Binder<String?> = Binder(nil)
     
-    override init() {
+    init(result: TrackDetailsModel) {
+        self.result.value = result
+
         super.init()
+        
+        self.image(with: self.result.value?.artworkUrl60)
     }
     
     func image(with url: URL?) {
@@ -27,7 +31,7 @@ class TrackDetailsViewModel: BaseViewModel<TrackDetailsViewOutputEvents> {
             do {
                 let (data, _) = try await URLSession.shared.data(from: gUrl)
                 let image = UIImage(data: data)
-                self.result?.value.artworkImage = image
+                self.result.value?.artworkImage = image
                 
             } catch {
                 self.error.value = "*** ERROR ***"
