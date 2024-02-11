@@ -18,7 +18,6 @@ class TrackDetailView: BaseView<TrackDetailsViewModel, TrackDetailsViewOutputEve
         super.viewDidLoad()
         
         self.setupBindings()
-        self.viewModel.image(with: self.viewModel.result?.value.artworkUrl60)
     }
     
     func configure(model: TrackDetailsModel) {
@@ -33,10 +32,10 @@ class TrackDetailView: BaseView<TrackDetailsViewModel, TrackDetailsViewOutputEve
 // MARK: - Private
 
 private extension TrackDetailView {
-    
+
     func setupBindings() {
-        self.viewModel.result?.bind { [weak self] _ in
-            guard let model = self?.viewModel.result?.value else { return }
+        self.viewModel.result.bind { [weak self] _ in
+            guard let model = self?.viewModel.result.value else { return }
             self?.configure(model: model)
         }
     }

@@ -52,8 +52,7 @@ class AppCoordinator: Coordinator {
     }
     
     private func pushTrackDetailsViewController(model: TrackDetailsModel) {
-        let viewModel = TrackDetailsViewModel()
-        viewModel.result?.value = model
+        let viewModel = TrackDetailsViewModel(result: model)
         let controller = TrackDetailView(viewModel: viewModel)
         controller.viewModel.outputEvents = { [weak self] event in
             self?.handle(event: event, controller: controller)
